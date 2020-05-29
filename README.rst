@@ -1,0 +1,73 @@
+CrunchDB Kata
+=============
+
+Welcome to the CrunchDB Kata! The purpose of this exercise is to evaluate how you approach software **development**, **testing**, **documentation** and **problem solving** skills.
+
+Problem Description
+-------------------
+
+Our goal is to build a **system** that stores **preferences** over favourite singers and car brands for people.
+Suppose we asked those people:
+
+- "What's your favourite car brand?"  (can pick only 1)
+- "Which car brands do you like?"  (can pick multiple)
+- "Which car brands do you currently own?"  (can pick multiple)
+- "Which car brands have your ever owned?"  (can pick multiple)
+- "What's your favourite music artist?"  (can pick only 1)
+- "Which music artist would you vote at a music competition?"  (can pick only 1)
+- "Which music artists have you listened to?"  (can pick multiple)
+- "Which music artists do you known?"  (can pick multiple)
+- "Which music artists do you dislike?"  (can pick multiple)
+
+We want to be able to answer those **questions**:
+
+1. What's the most frequently owned car brand?
+2. What's the favourite car brand?
+3. What's the most listened to music artist?
+4. What's the favourite music artist?
+
+Expected Artifacts
+------------------
+
+1. A python script (``acquisition.py``) to load the **preferences** as they come and queue them into a MongoDB database
+2. A python script (``storage.py``) to fetch the preferences from MongoDB and move them into the **system**
+3. A python script (``query.py``) to read the data stored into the **system** and provide answer to one of the **questions**
+
+Acquistion
+----------
+
+Each time one of our survey members responded to survey with the mentioned preferences, it sent us a file in JSON format with his/her answers (to generate those files run ``data/generata_data.py``).
+
+We don't want to load into our system the **preferences** as they come, 
+but we want to load them only when they might consistute a significative change to the outcome of the questions.
+
+For this reason we want to queue the **preferences** into a MongoDB database until we a few of them and only flush them on demand.
+So the **preferences** must go from ``.jsonl`` files to MongoDB.
+
+Storage
+-------
+
+Every time the ``storage.py`` script is started it should check for new data in mongo and consume it
+ in chunks of 50 **preferences** at the time. If we have less than 50 **preferences** left in mongo we won't consume them.
+
+When the answers are consumed from mongo, they must be moved into the system which keeps data in whatever format you
+prefer as far as it's an on-disk format (as a single file or multiple files, as you see more convenient).
+
+The format in which data is stored on disk must be optimized for minimum disk space consumption and fast answering
+of the **questions** by the **query** script. In general it should aim to consume less disk space than the format the
+answers originally came in and be quick to answer to queries, but it can sacrifice speed of writes.
+
+Query
+-----
+
+The query interface to the system must allow another software to get back on demand 
+the answer to *one and only one* of the **questions** on demand.
+
+It must be possible to decided to which question (out of the previously mentioned four) we want the answer by the way, 
+so the question answered must not be hard-coded into the system.
+
+An HTTP GET endpoint, a HTTP/JSON API or a command line tool are all perfectly fine ways to provide an interface to the
+system, you are free to chose what you find more convenient. 
+
+Just keep in mind that in theory there will be another developer that has to write a software that consumes the answers you provide,
+so should not be too hard to interact with the query system.

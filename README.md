@@ -1,1 +1,0 @@
-# crunchdb-kata
