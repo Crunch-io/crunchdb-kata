@@ -53,8 +53,7 @@ So the ``acquisition.py`` script must load the **preferences** ``.jsonl`` files 
 Storage
 -------
 
-Every time the ``storage.py`` script is started it should check for new data in mongo and consume it
- in chunks of 50 **preferences** at the time. If we have less than 50 **preferences** left in mongo we won't consume them.
+Every time the ``storage.py`` script is started it should check for new data in mongo and consume it in chunks of 50 **preferences** at the time. If we have less than 50 **preferences** left in mongo we won't consume them.
 
 When the answers are consumed from mongo, they must be moved into the **system** which keeps data in whatever format you
 prefer as long as it's an on-disk format (as a single file or multiple files, whichever you find more convenient).
