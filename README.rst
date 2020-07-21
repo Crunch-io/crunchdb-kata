@@ -19,7 +19,7 @@ Suppose we asked those people:
 - "Which music artists do you known?"  (can pick multiple)
 - "Which music artists do you dislike?"  (can pick multiple)
 
-We want to be able to answer those **questions**:
+We want to be able to answer these **questions**:
 
 1. What's the most frequently owned car brand?
 2. What's the favourite car brand?
@@ -29,15 +29,15 @@ We want to be able to answer those **questions**:
 Provided Resources
 ------------------
 
-- [Defined constants](data/constants.py) - The pre-defined lists of car-brands, singers, allowed answers to questions (e.g. ``"yes"``, ``"no"``, and ``"not_answered"``), and JSON keys for input data.
-- [Random data generating script](data/generate_data.py) - Run this to create simulated, random chunks of input survey data containing the **preferences**.
+- `Defined constants <data/constants.py>`_ - The pre-defined lists of car-brands, singers, allowed answers to questions (e.g. ``"yes"``, ``"no"``, and ``"not_answered"``), and JSON keys for input data.
+- `Random data generating script <data/generate_data.py>`_ - Run this to create simulated, random chunks of input survey data containing the **preferences**.
 
 Expected Artifacts
 ------------------
 
 1. A python script (``acquisition.py``) to load the **preferences** as they come and queue them into a MongoDB database
 2. A python script (``storage.py``) to fetch the preferences from MongoDB and move them into the **system**
-3. A python script (``query.py``) to read the data stored into the **system** and provide answer to one of the **questions**
+3. A python script (``query.py``) to read the data stored into the **system** and provide answers to one of the **questions**
 
 Acquisition
 -----------
@@ -72,7 +72,7 @@ It must be possible to indicate which question (out of the previously mentioned 
 so the question answered must not be hard-coded into the system.
 
 An HTTP GET endpoint, a HTTP/JSON API or a command line tool are all perfectly acceptable ways to provide an interface to the
-system, you are free to chose what you find more convenient. 
+system, you are free to chose what you find more convenient.
 
 Just keep in mind that in theory there will be another developer that has to write software that consumes the answers you provide,
 so it should not be too hard to programmatically interact with the query system.
