@@ -8,7 +8,7 @@ from constants import *
 
 
 for ans in range(1005):
-    with open("chunck_%04d.jsonl" % ans, "w") as ansf:
+    with open("chunk_%04d.jsonl" % ans, "w") as ansf:
         row = {"pk": "%d" % ans}
         for carvar in carvars:
             row[carvar] = random.choice(carbrands)
